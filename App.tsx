@@ -1,4 +1,6 @@
 import {
+  Viro360Image,
+  Viro3DObject,
   ViroARScene,
   ViroARSceneNavigator,
   ViroText,
@@ -7,8 +9,10 @@ import {
 } from "@reactvision/react-viro";
 import React, { useState } from "react";
 import { StyleSheet } from "react-native";
+import {objects_3D} from './src/viroRes/resources';
+import HelloWorldSceneAR from "./src/components/helloWorldScenej";
 
-const HelloWorldSceneAR = () => {
+const HelloWorldSceneARr = () => {
   const [text, setText] = useState("Initializing AR...");
 
   function onInitialized(state: any, reason: ViroTrackingReason) {
@@ -20,6 +24,22 @@ const HelloWorldSceneAR = () => {
     }
   }
 
+  const render3DObject = () => {
+    return (
+      // <Viro360Image source={{uri:"https://www.mywebsite.com/360_park.jpg"}} />
+      <Viro3DObject
+        source={objects_3D.turkeyman_anim.obj}
+        type={"VRX"}
+        position={[0, 0, -1]}
+        // scale={objects_3D.turkeyman_anim.scale}
+        // rotation={[0, 0, 0]}
+        // animation={{...objects_3D.turkeyman_anim.animation, run: true}}
+        // dragType="FixedToWorld"
+        // onDrag={() => {}}
+      />
+    );
+  };
+
   return (
     <ViroARScene onTrackingUpdated={onInitialized}>
       <ViroText
@@ -28,6 +48,7 @@ const HelloWorldSceneAR = () => {
         position={[0, 0, -1]}
         style={styles.helloWorldTextStyle}
       />
+      {render3DObject()}
     </ViroARScene>
   );
 };
